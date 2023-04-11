@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use OpenAI\Laravel\Facades\OpenAI;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -25,6 +26,15 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::get('/prueba', function () {
+
+
+        $result = OpenAI::completions()->create([
+            'model' => 'text-davinci-003',
+            'prompt' => '¿Que es el marmol?',
+        ]);
+        echo $result['choices'][0]['text'];
+    });
 });
 
 require __DIR__.'/auth.php';

@@ -63,10 +63,12 @@ return [
         'users' => [
             'driver' => 'ldap',
             'model' => LdapRecord\Models\OpenLDAP\User::class,
-            'rules' => [],
+            'rules' => [
+                App\Ldap\Rules\OnlyAdministrators::class,
+            ],
             'database' => [
                 'model' => App\Models\User::class,
-                'sync_passwords' => false,
+                'password_column' => false,
                 'sync_attributes' => [
                     'name' => 'cn',
                     'username' => 'uid',

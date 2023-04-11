@@ -2,7 +2,6 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -19,7 +18,7 @@ Route::get('/', function () {
 });
 
 Route::get('/test', function () {
-    $ldap_host = env('LDAP_HOST');
+    $ldap_host = 'openldap';
     $ldap_port = env('LDAP_PORT');
     $ldap_dn = env('LDAP_USER_DN');
     $ldap_password = env('LDAP_USER_PASSWORD');
@@ -44,7 +43,6 @@ Route::get('/test', function () {
 
         if ($search) {
             $entries = ldap_get_entries($ldapconn, $search);
-            dd($entries);
             // Obtener información del usuario de $entries
             if ($entries['count'] > 0) {
                 $cn = $entries[0]['cn'][0];

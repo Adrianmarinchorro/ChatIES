@@ -9,7 +9,7 @@ class AddLdapColumnsToUsersTable extends Migration
 {
     /**
      * Run the migrations.
-     * 
+     *
      * @return void
      */
     public function up()
@@ -17,7 +17,7 @@ class AddLdapColumnsToUsersTable extends Migration
         $driver = Schema::getConnection()->getDriverName();
 
         Schema::table('users', function (Blueprint $table) use ($driver) {
-            $table->string('guid')->nullable();
+            $table->string('guid', 40)->nullable();
             $table->string('domain')->nullable();
 
             if ($driver !== 'sqlsrv') {
@@ -34,7 +34,7 @@ class AddLdapColumnsToUsersTable extends Migration
 
     /**
      * Reverse the migrations.
-     * 
+     *
      * @return void
      */
     public function down()
@@ -46,11 +46,11 @@ class AddLdapColumnsToUsersTable extends Migration
 
     /**
      * Compile a compatible "unique" SQL Server index constraint.
-     * 
+     *
      * @param string $table
-     * @param string $column 
-     * 
-     * @return string 
+     * @param string $column
+     *
+     * @return string
      */
     protected function compileUniqueSqlServerIndexStatement($table, $column)
     {

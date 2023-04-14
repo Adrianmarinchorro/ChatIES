@@ -35,8 +35,4 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::get('\prueba2', function () {
-    return Inertia::render('Prueba');
-})->name('prueba2');
-
 require __DIR__.'/auth.php';

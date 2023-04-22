@@ -2,7 +2,8 @@
     <div class="">
         <div>
             <form>
-                <input type="text" placeholder="Intruduce tu pregunta">
+                <input type="text" placeholder="Intruduce tu pregunta" class="w-128">
+                <button>Enviar</button>
             </form>
         </div>
 

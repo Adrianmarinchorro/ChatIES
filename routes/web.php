@@ -21,9 +21,9 @@ Route::get('/', function () {
     return redirect()->route('login');
 });
 
-Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/chat', function () {
+    return Inertia::render('Chat');
+})->middleware(['auth', 'verified'])->name('chat');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -36,10 +36,11 @@ Route::middleware('auth')->group(function () {
         ]);
         echo $result['choices'][0]['text'];
     });
+    Route::get('/prueba2', function () {
+        return Inertia::render('Prueba');
+    })->name('prueba2');
 });
 
-Route::get('\prueba2', function () {
-    return Inertia::render('Prueba');
-})->name('prueba2');
+
 
 require __DIR__.'/auth.php';

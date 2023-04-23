@@ -2,7 +2,7 @@
     <Head title="Chat"/>
     <PruebaLayout>
 
-        <div class="flex h-full">
+        <div class="flex h-128">
 
             <div class="w-1/6 bg-blue-400 min-h-full">
 
@@ -16,7 +16,7 @@
                     </p>
                 </div>
 
-                <InputChat class="absolute bottom-0">
+                <InputChat class="absolute bottom-0 p-6">
 
                 </InputChat>
 

@@ -15,7 +15,10 @@ module.exports = {
                 sans: ['Figtree', ...defaultTheme.fontFamily.sans],
             },
             width: {
-                '128': '95rem',
+                '128': '90rem',
+            },
+            height: {
+                '128': '91vh',
             }
         },
     },

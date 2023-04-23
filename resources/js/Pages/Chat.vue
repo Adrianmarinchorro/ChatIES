@@ -8,11 +8,11 @@
 
             </div>
 
-            <div class="w-5/6 min-h-full bg-orange-600">
+            <div class="w-5/6 min-h-full bg-gray-800">
 
                 <div class="">
                     <p>
-                        p
+                        <TextAreaChat></TextAreaChat>
                     </p>
                 </div>
 
@@ -30,10 +30,11 @@
 import PruebaLayout from '@/Layouts/PruebaLayout.vue';
 import { Head } from '@inertiajs/vue3';
 import InputChat from '@/Components/chat/InputChat.vue'
+import TextAreaChat from '@/Components/chat/TextAreaChat.vue'
 
 export default {
     components: {
-        InputChat , Head, PruebaLayout
+        InputChat , Head, PruebaLayout, TextAreaChat
     }
 }
 </script>

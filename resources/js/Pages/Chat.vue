@@ -12,7 +12,7 @@
 
                 <div class="">
                     <p>
-                        <TextAreaChat></TextAreaChat>
+                        <TextAreaChat :request="request" :response="response"></TextAreaChat>
                     </p>
                 </div>
 
@@ -34,18 +34,56 @@ import TextAreaChat from '@/Components/chat/TextAreaChat.vue';
 import axios from 'axios';
 
 export default {
+
+    data() {
+        return {
+            allChats: [],
+        };
+    },
+
     components: {
         InputChat , Head, PruebaLayout, TextAreaChat
     },
 
+    props: [
+        'request', 'response'
+    ],
+
     methods: {
-        prueba() {
-            router.post('/chat2');
-        },
+
     },
 
     created() {
-      this.prueba();
+      if(!localStorage.getItem('conversation')) {
+          localStorage.setItem('conversation', []);
+      }
+
+      if(this.request && this.response) {
+
+          const chat = localStorage.getItem('conversation');
+
+          if(chat.length == 0) {
+
+              localStorage.setItem('conversation', [
+                  {
+                      id: chat.length++,
+                      request: this.request,
+                      response: this.response,
+                  }
+              ]);
+          } else {
+
+              chat.push({
+                  id: chat.length++,
+                  request: this.request,
+                  response: this.response,
+              });
+
+          }
+
+          this.allChats = chat;
+      }
+
     }
 }
 </script>

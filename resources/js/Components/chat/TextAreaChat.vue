@@ -1,8 +1,8 @@
 <template>
     <div class="bg-gray-500 m-5 h-100">
         <div v-for="chat in chats" :key="chat.id">
-            <TextUser  :chat="chat.search.message"></TextUser>
-            <TextIA :chat="chat.respuesta.message"></TextIA>
+            <TextUser  :chat="request"></TextUser>
+            <TextIA :chat="response"></TextIA>
         </div>
     </div>
 </template>
@@ -14,6 +14,12 @@ export default {
     data() {
         chats: [];
     },
+
+
+    props: [
+        'request', 'response',
+    ],
+
     created() {
         this.chats = [{
             id: 1,

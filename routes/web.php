@@ -25,8 +25,6 @@ Route::get('/chat', function () {
     return Inertia::render('Chat');
 })->middleware(['auth', 'verified'])->name('chat');
 
-Route::post('/chat2', [\App\Http\Controllers\ChatController::class, 'index']);
-
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
@@ -38,6 +36,8 @@ Route::middleware('auth')->group(function () {
         ]);
         echo $result['choices'][0]['text'];
     });
+
+    Route::post('/chat', [\App\Http\Controllers\ChatController::class, 'index']);
 
     Route::get('/prueba2', function () {
         return Inertia::render('Prueba');

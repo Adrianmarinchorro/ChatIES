@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
+use Inertia\Inertia;
 
 class ChatController extends Controller
 {
@@ -18,9 +20,9 @@ class ChatController extends Controller
 //            'prompt' => $request['search'],
 //        ]);
 
-        return  [
-            '$request' => $request['search'],
-            '$response' => str::random(10), //$result['choices'][0]['text'],
-            ];
+       return  Inertia::render('Chat', [
+           'request' => $request['message'],
+           'response' => Str::random(10), //$result['choices'][0]['text'],
+           ]);
     }
 }

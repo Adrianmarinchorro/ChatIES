@@ -28,7 +28,7 @@
 
 <script>
 import PruebaLayout from '@/Layouts/PruebaLayout.vue';
-import { Head } from '@inertiajs/vue3';
+import { Head, router } from '@inertiajs/vue3';
 import InputChat from '@/Components/chat/InputChat.vue';
 import TextAreaChat from '@/Components/chat/TextAreaChat.vue';
 import axios from 'axios';
@@ -40,7 +40,7 @@ export default {
 
     methods: {
         prueba() {
-            axios.post('/chat2');
+            router.post('/chat2');
         },
     },
 

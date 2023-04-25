@@ -29,12 +29,23 @@
 <script>
 import PruebaLayout from '@/Layouts/PruebaLayout.vue';
 import { Head } from '@inertiajs/vue3';
-import InputChat from '@/Components/chat/InputChat.vue'
-import TextAreaChat from '@/Components/chat/TextAreaChat.vue'
+import InputChat from '@/Components/chat/InputChat.vue';
+import TextAreaChat from '@/Components/chat/TextAreaChat.vue';
+import axios from 'axios';
 
 export default {
     components: {
         InputChat , Head, PruebaLayout, TextAreaChat
+    },
+
+    methods: {
+        prueba() {
+            axios.post('/chat2');
+        },
+    },
+
+    created() {
+      this.prueba();
     }
 }
 </script>

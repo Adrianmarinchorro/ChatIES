@@ -25,17 +25,20 @@ Route::get('/chat', function () {
     return Inertia::render('Chat');
 })->middleware(['auth', 'verified'])->name('chat');
 
+Route::post('/chat2', [\App\Http\Controllers\ChatController::class, 'index']);
+
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::get('/prueba', function () {
         $result = OpenAI::completions()->create([
-            'model' => 'text-davinci-003',
+            'model' => 'text-curie-001',
             'prompt' => '¿Que es el marmol?',
         ]);
         echo $result['choices'][0]['text'];
     });
+
     Route::get('/prueba2', function () {
         return Inertia::render('Prueba');
     })->name('prueba2');

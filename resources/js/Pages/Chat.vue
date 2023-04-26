@@ -1,5 +1,5 @@
 <template>
-    <Head title="Chat"/>
+    <Head title="Chat" />
     <PruebaLayout>
 
         <div class="flex h-128">
@@ -12,7 +12,7 @@
 
                 <div class="">
                     <p>
-                        <TextAreaChat :request="request" :response="response"></TextAreaChat>
+                        <TextAreaChat :allChats="allChats"></TextAreaChat>
                     </p>
                 </div>
 
@@ -42,7 +42,7 @@ export default {
     },
 
     components: {
-        InputChat , Head, PruebaLayout, TextAreaChat
+        InputChat, Head, PruebaLayout, TextAreaChat
     },
 
     props: [
@@ -52,38 +52,41 @@ export default {
     methods: {
 
     },
-
     created() {
-      if(!localStorage.getItem('conversation')) {
-          localStorage.setItem('conversation', []);
-      }
+        if (localStorage.getItem('conversation')) {
+            this.allChats = JSON.parse(localStorage.getItem('conversation'));
+        }
+    },
 
-      if(this.request && this.response) {
+    watch: {
+        response() {
+            if (this.request && this.response) {
+                if (localStorage.getItem('conversation')) {
 
-          const chat = localStorage.getItem('conversation');
+                    var chat = JSON.parse(localStorage.getItem('conversation'));
 
-          if(chat.length == 0) {
+                    chat.push({
+                        id: chat.length + 1,
+                        request: this.request,
+                        response: this.response
+                    });
 
-              localStorage.setItem('conversation', [
-                  {
-                      id: chat.length++,
-                      request: this.request,
-                      response: this.response,
-                  }
-              ]);
-          } else {
+                    localStorage.setItem('conversation', JSON.stringify(chat));
+                    this.allChats = chat;
 
-              chat.push({
-                  id: chat.length++,
-                  request: this.request,
-                  response: this.response,
-              });
+                } else {
 
-          }
-
-          this.allChats = chat;
-      }
-
+                    var chat = [];
+                    chat.push({
+                        id: 1,
+                        request: this.request,
+                        response: this.response
+                    });
+                    localStorage.setItem('conversation', JSON.stringify(chat));
+                    this.allChats = chat;
+                }
+            }
+        }
     }
 }
 </script>

@@ -1,5 +1,5 @@
 <template>
-    <div class="bg-gray-500 m-5 h-100">
+    <div class="bg-gray-500 m-5 h-100 overflow-y-auto scroll-behavior">
         <div v-for="(chat, index) in allChats" :key="index">
             <TextUser  :chat="chat.request"></TextUser>
             <TextIA :chat="chat.response"></TextIA>

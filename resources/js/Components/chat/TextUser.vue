@@ -1,6 +1,6 @@
 <template>
-    <div>
-         <p>{{chat}}</p>
+    <div class="chat chat-start">
+         <div class="chat-bubble chat-bubble-primary">Usted: {{chat}}</div>
     </div>
 </template>
 

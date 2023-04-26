@@ -18,6 +18,7 @@
         "vue": "^3.2.41"
     },
     "dependencies": {
+        "daisyui": "^2.51.6",
         "vite-plugin-favicons-inject": "^2.2.0"
     }
 }

@@ -1,5 +1,5 @@
 <template>
-    <div class="bg-gray-500 m-5 h-100 overflow-y-auto scroll-behavior">
+    <div ref="chatWindow" class="bg-gray-500 m-5 h-100 overflow-y-auto scroll-bottomº">
         <div v-for="(chat, index) in allChats" :key="index">
             <TextUser  :chat="chat.request"></TextUser>
             <TextIA :chat="chat.response"></TextIA>
@@ -18,12 +18,11 @@ export default {
     components: {
         TextUser, TextIA
     },
-    watch: {
-        allChats() {
-            for (const key in this.allChats) {
-                console.log(key);
-            }
-        }
-    }
+    mounted() {
+        this.$refs.chatWindow.scrollTop = this.$refs.chatWindow.scrollHeight;
+    },
+    updated() {
+        this.$refs.chatWindow.scrollTop = this.$refs.chatWindow.scrollHeight;
+    },
 }
 </script>

@@ -1,6 +1,6 @@
 <template>
     <div class="chat chat-end">
-         <div class="chat-bubble chat-bubble-secondary">ChatIES: {{chat}}</div>
+         <div class="chat-bubble chat-bubble-secondary max-w-80 break-words h-auto">ChatIES: {{chat}}</div>
     </div>
 </template>
 

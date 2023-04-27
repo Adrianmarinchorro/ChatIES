@@ -5,7 +5,7 @@
         <div class="flex h-128">
 
             <div class="w-1/6 bg-gray-800 border-4 border-gray-600 min-h-full">
-
+                <SideBarChat @recharge="recharge"></SideBarChat>
             </div>
 
             <div class="w-5/6 min-h-full bg-gray-800">
@@ -32,6 +32,7 @@ import { Head, router } from '@inertiajs/vue3';
 import InputChat from '@/Components/chat/InputChat.vue';
 import TextAreaChat from '@/Components/chat/TextAreaChat.vue';
 import axios from 'axios';
+import SideBarChat from "@/Components/chat/sideBarChat.vue";
 
 export default {
 
@@ -42,6 +43,7 @@ export default {
     },
 
     components: {
+        SideBarChat,
         InputChat, Head, PruebaLayout, TextAreaChat
     },
 
@@ -50,7 +52,9 @@ export default {
     ],
 
     methods: {
-
+        recharge() {
+            this.allChats = [];
+        }
     },
     created() {
         if (localStorage.getItem('conversation')) {

@@ -2,7 +2,7 @@
     <div class="bg-gray-800 w-max pr-10">
         <div>
             <form @submit.prevent="submit">
-                <input type="text" placeholder="Intruduce tu pregunta" class="w-128 rounded" v-model="message">
+                <input type="text" placeholder="Intruduce tu pregunta" class="md:w-128 lg:w-98 break-words h-auto rounded" v-model="message">
                 <button type="submit" class="ml-2 btn btn-active btn glass">Enviar</button>
             </form>
         </div>

@@ -31,8 +31,7 @@ import PruebaLayout from '@/Layouts/PruebaLayout.vue';
 import { Head, router } from '@inertiajs/vue3';
 import InputChat from '@/Components/chat/InputChat.vue';
 import TextAreaChat from '@/Components/chat/TextAreaChat.vue';
-import axios from 'axios';
-import SideBarChat from "@/Components/chat/sideBarChat.vue";
+import SideBarChat from "@/Components/chat/SideBarChat.vue";
 
 export default {
 

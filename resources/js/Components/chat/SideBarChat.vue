@@ -4,7 +4,7 @@
 
         <div v-for="(chat, index) in history" :key="index">
             <div>
-                <button class="btn btn-warning w-full rounded border-4 border-gray-800" @click="getChat()">{{ getName(chat.chat[0].request) }}</button>
+                <button class="btn btn-success w-full rounded border-4 border-gray-800" @click="getChat(chat.chat.id)">{{ getName(chat.chat.chat[0].request) }}</button>
             </div>
         </div>
     </div>
@@ -67,10 +67,31 @@ export default {
         },
 
         getName(name) {
-            return name.length < 10 ? name : name.substring(0, 10) + '...';
+            return name.length < 24 ? name : name.substring(0, 24) + '...';
         },
-        getChat() {
+        getChat(id) {
 
+            var history = JSON.parse(localStorage.getItem('history'));
+            var chat = JSON.parse(localStorage.getItem('conversation'));
+
+            if (chat && !chat.wasSaved) {
+                history.push({
+                    id: history.length + 1,
+                    chat: chat,
+                });
+
+                localStorage.setItem('history', JSON.stringify(history));
+
+                localStorage.removeItem('conversation');
+            }
+
+            chat = history[id - 1].chat;
+
+            chat.wasSaved = true;
+
+            localStorage.setItem('conversation', JSON.stringify(chat));
+
+            this.$emit('refresh');
         },
     }
 

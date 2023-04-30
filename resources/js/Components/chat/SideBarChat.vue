@@ -4,7 +4,7 @@
 
         <div v-for="(chat, index) in history" :key="index">
             <div>
-                <button class="btn btn-success w-full rounded border-4 border-gray-800" @click="getChat(chat.chat.id)">{{ getName(chat.chat.chat[0].request) }}</button>
+                <button class="btn btn-success w-full rounded border-4 border-gray-800" @click="getChat(chat.id)">{{ getName(chat.chat.chat[0].request) }}</button>
             </div>
         </div>
     </div>
@@ -33,32 +33,37 @@ export default {
         createNewChat() {
 
             if (!localStorage.getItem('history')) {
+
                 var chat = JSON.parse(localStorage.getItem('conversation'));
+
                 if (chat) {
+                    chat.wasSaved = true;
+
                     localStorage.setItem('history', JSON.stringify([{
                         id: 1,
                         chat: chat,
                     }]));
                 }
 
-
-                localStorage.removeItem('conversation');
-
             } else {
 
                 var history = JSON.parse(localStorage.getItem('history'));
                 var chat = JSON.parse(localStorage.getItem('conversation'));
-                if (chat) {
+
+                if (chat && chat.wasSaved === false) {
+                    chat.wasSaved = true;
+
                     history.push({
                         id: history.length + 1,
                         chat: chat,
                     });
+
                     localStorage.setItem('history', JSON.stringify(history));
 
-                    localStorage.removeItem('conversation');
                 }
-
             }
+
+            localStorage.removeItem('conversation');
 
             this.history = JSON.parse(localStorage.getItem('history'));
 
@@ -69,12 +74,14 @@ export default {
         getName(name) {
             return name.length < 24 ? name : name.substring(0, 24) + '...';
         },
+
         getChat(id) {
 
             var history = JSON.parse(localStorage.getItem('history'));
             var chat = JSON.parse(localStorage.getItem('conversation'));
 
-            if (chat && !chat.wasSaved) {
+
+            if (chat && chat.wasSaved === false) {
                 history.push({
                     id: history.length + 1,
                     chat: chat,
@@ -83,11 +90,10 @@ export default {
                 localStorage.setItem('history', JSON.stringify(history));
 
                 localStorage.removeItem('conversation');
+
             }
 
             chat = history[id - 1].chat;
-
-            chat.wasSaved = true;
 
             localStorage.setItem('conversation', JSON.stringify(chat));
 

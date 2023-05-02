@@ -1,10 +1,11 @@
 <template>
-    <div>
+    <div class="max-h-full overflow-y-auto overflow-hidden scrollbar scrollbar-thumb-gray-800">
         <button class="btn btn-warning w-full rounded border-4 border-gray-800" @click="createNewChat">Nuevo Chat</button>
 
         <div v-for="(chat, index) in history" :key="index">
             <div>
-                <button class="btn btn-success w-full rounded border-4 border-gray-800" @click="getChat(chat.id)">{{ getName(chat.chat.chat[0].request) }}</button>
+                <button class="btn btn-success w-full rounded border-4 border-gray-800" @click="getChat(chat.id)">{{
+                    getName(chat.chat.chat[0].request) }}</button>
             </div>
         </div>
     </div>

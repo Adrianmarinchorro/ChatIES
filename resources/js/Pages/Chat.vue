@@ -4,7 +4,7 @@
 
         <div class="flex h-128">
 
-            <div class="w-1/6 bg-gray-800 border-4 border-gray-600 min-h-full">
+            <div class="w-1/6 bg-gray-800 border-4 border-gray-600 min-h-full max-h-full">
                 <SideBarChat @recharge="recharge" @refresh="refresh"></SideBarChat>
             </div>
 

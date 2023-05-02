@@ -20,7 +20,12 @@ module.exports = {
             height: {
                 '128': '91vh',
                 '100' : '80vh',
-            }
+            },
+            scrollbar: {
+                width: '0px',
+                height: '0px',
+                // Añadir aquí más opciones de personalización si se desean
+              },
         },
     },
 
@@ -51,6 +56,6 @@ module.exports = {
         ],
     },
 
-    plugins: [require('@tailwindcss/forms'), require("daisyui")],
+    plugins: [require('@tailwindcss/forms'), require("daisyui"), require('tailwind-scrollbar')],
 
 };

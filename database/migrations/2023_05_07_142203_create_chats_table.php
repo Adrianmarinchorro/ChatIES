@@ -12,9 +12,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('chats', function (Blueprint $table) {
-            $table->bigIncrements();
+            $table->bigIncrements('id');
 
-            $table->bigIncrements('history_id');
+            $table->unsignedBigInteger('history_id');
             $table->foreign('history_id')->on('histories')->references('id')->onDelete('CASCADE');
             $table->jsonb('data');
 

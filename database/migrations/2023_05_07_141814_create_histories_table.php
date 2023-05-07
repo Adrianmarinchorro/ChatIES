@@ -12,9 +12,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('histories', function (Blueprint $table) {
-            $table->bigIncrements();
+            $table->bigIncrements('id');
 
-            $table->bigIncrements('user_id');
+            $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->on('users')->references('id')->onDelete('CASCADE');
 
             $table->timestamps();

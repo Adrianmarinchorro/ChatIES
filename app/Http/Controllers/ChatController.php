@@ -20,9 +20,43 @@ class ChatController extends Controller
 //            'prompt' => $request['search'],
 //        ]);
 
-       return  Inertia::render('Chat', [
-           'request' => $request['message'],
-           'response' => Str::random(10), //$result['choices'][0]['text'],
+
+        $user = auth()->user();
+
+        $history = null;
+        $chat = null;
+
+        if(!$user->history){
+           $history =  $user->history()->create();
+
+           $data = json_encode([
+            0 => [
+                'request' => $request['message'],
+                'response' => Str::random(10),
+            ]
            ]);
+
+           $chat =  $history->chats()->create([
+            'data' => $data
+           ]);
+
+
+        }else {
+            $history =  $user->history;
+            $chat = $history->chats()->find(1);
+            $data = json_decode($chat->data);
+
+            $data[] = [
+                'request' => $request['message'],
+                'response' => Str::random(10),
+            ];
+            
+            $chat->data = json_encode($data);
+        }
+
+        Inertia::render('Chat', [
+            "history" => $history,
+            "chat" => $chat
+        ]);
     }
 }

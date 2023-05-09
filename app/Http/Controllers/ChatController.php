@@ -15,13 +15,18 @@ class ChatController extends Controller
     public function index()
     {
         $user = auth()->user();
-        $history =  $user->history;
-        $chat = Chat::where('history_id', $history->id)->latest()->first();
-        $chat->data = json_decode($chat->data);
+        $history = null;
+        $chat = null;
+
+        if($user->history){
+            $history =  $user->history;
+            $chat = Chat::where('history_id', $history->id)->latest()->first();
+            $chat->data = json_decode($chat->data);
+        }
 
         return Inertia::render('Chat', [
             "history" => $history,
-            "chat" => $chat
+            "chats" => $chat
         ]);
     }
 
@@ -77,7 +82,7 @@ class ChatController extends Controller
 
         return Inertia::render('Chat', [
             "history" => $history,
-            "chat" => $chat
+            "chats" => $chat
         ]);
     }
 }

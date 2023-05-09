@@ -12,7 +12,7 @@
 
                 <div class="">
                     <p>
-                        <TextAreaChat :allChats="chat"></TextAreaChat>
+                        <TextAreaChat :chats="chats"></TextAreaChat>
                     </p>
                 </div>
 
@@ -35,66 +35,14 @@ import SideBarChat from "@/Components/chat/SideBarChat.vue";
 
 export default {
 
-    data() {
-        return {
-            allChats: [],
-        };
-    },
-
     components: {
         SideBarChat,
         InputChat, Head, PruebaLayout, TextAreaChat
     },
 
     props: [
-        'chat', 'history'
+        'chats', 'history'
     ],
-
-    methods: {
-        recharge() {
-            this.allChats = [];
-        },
-
-        refresh() {
-            this.allChats = JSON.parse(localStorage.getItem('conversation')).chat;
-        },
-    },
-    created() {
-        if (localStorage.getItem('conversation')) {
-            this.allChats = JSON.parse(localStorage.getItem('conversation')).chat;
-        }
-    },
-
-    watch: {
-        response() {
-            if (this.request && this.response) {
-                if (localStorage.getItem('conversation')) {
-
-                    var chat = JSON.parse(localStorage.getItem('conversation'));
-
-                    chat.chat.push({
-                        id: chat.chat.length + 1,
-                        request: this.request,
-                        response: this.response
-                    });
-
-                    localStorage.setItem('conversation', JSON.stringify(chat));
-                    this.allChats = chat.chat;
-
-                } else {
-
-                    var chat = { chat: [{
-                            id: 1,
-                            request: this.request,
-                            response: this.response
-                        }], wasSaved: false };
-
-                    localStorage.setItem('conversation', JSON.stringify(chat));
-                    this.allChats = chat.chat;
-                }
-            }
-        }
-    }
 }
 </script>
 

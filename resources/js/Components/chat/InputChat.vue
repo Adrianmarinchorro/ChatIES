@@ -25,12 +25,8 @@ export default {
 
     methods: {
         submit(){
-            var chat = JSON.parse(localStorage.getItem('conversation'));
-
-            if(chat == null || chat.wasSaved === false){
-                router.post('chat', {"message": this.message});
-                this.message = '';
-            }
+            router.post('chat', {"message": this.message});
+            this.message = '';
 
         },
     },

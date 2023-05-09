@@ -21,9 +21,7 @@ Route::get('/', function () {
     return redirect()->route('login');
 });
 
-Route::get('/chat', function () {
-    return Inertia::render('Chat');
-})->middleware(['auth', 'verified'])->name('chat');
+Route::get('/chat', [\App\Http\Controllers\ChatController::class, 'index'])->middleware(['auth', 'verified'])->name('chat');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -37,7 +35,7 @@ Route::middleware('auth')->group(function () {
         echo $result['choices'][0]['text'];
     });
 
-    Route::post('/chat', [\App\Http\Controllers\ChatController::class, 'index']);
+    Route::post('/chat', [\App\Http\Controllers\ChatController::class, 'addChat']);
 
     Route::get('/prueba2', function () {
         return Inertia::render('Prueba');

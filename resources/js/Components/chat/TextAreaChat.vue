@@ -1,6 +1,6 @@
 <template>
     <div ref="chatWindow" class="bg-gray-500 m-5 h-100 overflow-y-auto scroll-bottomº">
-        <div v-for="(chat, index) in allChats" :key="index">
+        <div v-for="(chat, index) in allChats.data" :key="index">
             <TextUser  :chat="chat.request" class="mt-2"></TextUser>
             <TextIA :chat="chat.response" class="mt-2"></TextIA>
         </div>

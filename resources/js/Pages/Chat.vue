@@ -12,7 +12,7 @@
 
                 <div class="">
                     <p>
-                        <TextAreaChat :allChats="allChats"></TextAreaChat>
+                        <TextAreaChat :allChats="chat"></TextAreaChat>
                     </p>
                 </div>
 
@@ -47,7 +47,7 @@ export default {
     },
 
     props: [
-        'request', 'response'
+        'chat', 'history'
     ],
 
     methods: {

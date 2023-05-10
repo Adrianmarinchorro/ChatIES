@@ -36,6 +36,7 @@ Route::middleware('auth')->group(function () {
     });
 
     Route::post('/chat', [\App\Http\Controllers\ChatController::class, 'addChat']);
+    Route::get('/newChat', [\App\Http\Controllers\ChatController::class, 'newChat'])->name('newChat');
 
     Route::get('/prueba2', function () {
         return Inertia::render('Prueba');

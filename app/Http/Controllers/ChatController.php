@@ -17,16 +17,21 @@ class ChatController extends Controller
         $user = auth()->user();
         $history = null;
         $chat = null;
+        $allChats = null;
 
         if($user->history){
             $history =  $user->history;
             $chat = Chat::where('history_id', $history->id)->latest()->first();
             $chat->data = json_decode($chat->data);
+            if($history->chats()->count() > 1) {
+                $allChats = $history->chats;
+            }
         }
 
         return Inertia::render('Chat', [
             "history" => $history,
-            "chats" => $chat
+            "chats" => $chat,
+            "allChats" => $allChats
         ]);
     }
 
@@ -45,6 +50,7 @@ class ChatController extends Controller
         $user = auth()->user();
         $history = null;
         $chat = null;
+        $allChats = null;
 
         if(!$user->history){
 
@@ -63,9 +69,9 @@ class ChatController extends Controller
 
 
         }else {
-
+            dd($request->all());
             $history =  $user->history;
-            $chat = $history->chats()->find(1);
+            $chat = $history->chats()->find($request->chats_id);
             $data = json_decode($chat->data);
 
             $data[] = [
@@ -78,11 +84,26 @@ class ChatController extends Controller
             $chat->save();
         }
 
+        if($history && $history->chats()->count() > 1) {
+            $allChats = $history->chats;
+        }
+
         $chat->data = json_decode($chat->data);
 
         return Inertia::render('Chat', [
             "history" => $history,
-            "chats" => $chat
+            "chats" => $chat,
+            "allChats" => $allChats
         ]);
+    }
+
+
+    public function newChat(){
+
+        auth()->user()->history->chats()->create([
+            'data' => json_encode([]),
+        ]);
+
+        return to_route('chat');
     }
 }

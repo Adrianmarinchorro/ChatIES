@@ -5,7 +5,7 @@
         <div class="flex h-128">
 
             <div class="w-1/6 bg-gray-800 border-4 border-gray-600 min-h-full max-h-full">
-                <SideBarChat @recharge="recharge" @refresh="refresh"></SideBarChat>
+                <SideBarChat :allChats="allChats"></SideBarChat>
             </div>
 
             <div class="w-5/6 min-h-full bg-gray-800">
@@ -16,7 +16,7 @@
                     </p>
                 </div>
 
-                <InputChat class="absolute bottom-0 p-6">
+                <InputChat class="absolute bottom-0 p-6" :chatsId="chats.id">
 
                 </InputChat>
 
@@ -41,7 +41,7 @@ export default {
     },
 
     props: [
-        'chats', 'history'
+        'chats', 'history' , 'allChats'
     ],
 }
 </script>

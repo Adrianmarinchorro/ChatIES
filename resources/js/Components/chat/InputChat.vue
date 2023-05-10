@@ -16,16 +16,19 @@
 import {router} from "@inertiajs/vue3";
 
 export default {
+    props: ['chatsId'],
     data() {
         return {
             message: '',
-
         }
     },
 
     methods: {
         submit(){
-            router.post('chat', {"message": this.message});
+            console.log(this.chatsId);
+            var data = {message: this.message , chats_id : this.chatsId};
+
+            router.post('chat', data);
             this.message = '';
 
         },

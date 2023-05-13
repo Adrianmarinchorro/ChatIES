@@ -16,7 +16,7 @@
 import {router} from "@inertiajs/vue3";
 
 export default {
-    props: ['chatsId'],
+    props: ['chats'],
     data() {
         return {
             message: '',
@@ -25,11 +25,19 @@ export default {
 
     methods: {
         submit(){
-            console.log(this.chatsId);
-            var data = {message: this.message , chats_id : this.chatsId};
 
-            router.post('chat', data);
-            this.message = '';
+            if(this.message != '') {
+                var chat_id = null;
+
+                if(this.chats){
+                    chat_id = this.chats.id
+                }
+
+                var data = {message: this.message , chats_id : chat_id};
+
+                router.post('chat', data);
+                this.message = '';
+            }
 
         },
     },

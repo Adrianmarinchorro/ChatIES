@@ -5,8 +5,8 @@
         <div v-if="allChats">
             <div v-for="(chat, index) in allChats" :key="index">
                 <div>
-                    <button class="btn btn-success w-full rounded border-4 border-gray-800" @click="getChat(chat.id)">{{
-                        getName('hola') }}</button>
+                    <button class="btn btn-success w-full rounded border-4 border-gray-800" v-if="chat.data != '[]'" @click="getChat(chat.id)">{{
+                        getName(chat.data) }}</button>
                 </div>
             </div>
         </div>
@@ -31,7 +31,11 @@ export default {
             router.get('newChat');
         },
 
-        getName(name) {
+        getName(data) {
+            data = JSON.parse(data);
+
+            name = data[0].request;
+
             return name.length < 24 ? name : name.substring(0, 24) + '...';
         },
 

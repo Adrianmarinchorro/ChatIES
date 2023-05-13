@@ -16,7 +16,7 @@
                     </p>
                 </div>
 
-                <InputChat class="absolute bottom-0 p-6" :chatsId="chats.id">
+                <InputChat class="absolute bottom-0 p-6" :chats="chats">
 
                 </InputChat>
 

@@ -69,7 +69,7 @@ class ChatController extends Controller
 
 
         }else {
-            dd($request->all());
+
             $history =  $user->history;
             $chat = $history->chats()->find($request->chats_id);
             $data = json_decode($chat->data);

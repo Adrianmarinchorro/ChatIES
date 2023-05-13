@@ -5,7 +5,7 @@
         <div class="flex h-128">
 
             <div class="w-1/6 bg-gray-800 border-4 border-gray-600 min-h-full max-h-full">
-                <SideBarChat :allChats="allChats"></SideBarChat>
+                <SideBarChat :allChats="allChats" :chat="chats"></SideBarChat>
             </div>
 
             <div class="w-5/6 min-h-full bg-gray-800">

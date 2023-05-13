@@ -12,20 +12,29 @@ class ChatController extends Controller
 {
 
 
-    public function index()
+    public function index(Request $request)
     {
         $user = auth()->user();
         $history = null;
         $chat = null;
         $allChats = null;
 
+        $chatId = $request['id'];
+
         if($user->history){
             $history =  $user->history;
-            $chat = Chat::where('history_id', $history->id)->latest()->first();
-            $chat->data = json_decode($chat->data);
-            if($history->chats()->count() > 1) {
-                $allChats = $history->chats;
+
+
+            if($chatId) {
+                $chat = Chat::find($chatId);
+            } else {
+                $chat = Chat::where('history_id', $history->id)->latest()->first();
             }
+
+            $chat->data = json_decode($chat->data);
+
+            $allChats = $history->chats;
+
         }
 
         return Inertia::render('Chat', [
@@ -100,10 +109,36 @@ class ChatController extends Controller
 
     public function newChat(){
 
-        auth()->user()->history->chats()->create([
-            'data' => json_encode([]),
-        ]);
+        $user = auth()->user();
+        $history = $user->history;
+
+        if($history){
+            $chat = Chat::where('history_id', $history->id)->latest()->first();
+
+            if($chat->data != '[]'){
+                auth()->user()->history->chats()->create([
+                    'data' => json_encode([]),
+                ]);
+            }
+        }
+        return to_route('chat');
+    }
+
+    public function deleteChat(int $id)
+    {
+        $user = auth()->user();
+        $history = $user->history;
+        $chat = Chat::find($id);
+
+        if($chat){
+            $chat->delete();
+        }
+
+        if(count($history->chats) == 0){
+            $history->delete();
+        }
 
         return to_route('chat');
     }
+
 }

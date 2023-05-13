@@ -5,6 +5,7 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use OpenAI\Laravel\Facades\OpenAI;
+use \App\Http\Controllers\ChatController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,7 +22,7 @@ Route::get('/', function () {
     return redirect()->route('login');
 });
 
-Route::get('/chat', [\App\Http\Controllers\ChatController::class, 'index'])->middleware(['auth', 'verified'])->name('chat');
+Route::get('/chat', [ChatController::class, 'index'])->middleware(['auth', 'verified'])->name('chat');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -35,8 +36,9 @@ Route::middleware('auth')->group(function () {
         echo $result['choices'][0]['text'];
     });
 
-    Route::post('/chat', [\App\Http\Controllers\ChatController::class, 'addChat']);
-    Route::get('/newChat', [\App\Http\Controllers\ChatController::class, 'newChat'])->name('newChat');
+    Route::post('/chat', [ChatController::class, 'addChat']);
+    Route::get('/newChat', [ChatController::class, 'newChat'])->name('newChat');
+    Route::delete('/deleteChat/{id}', [\App\Http\Controllers\ChatController::class, 'deleteChat'])->name('delete');
 
     Route::get('/prueba2', function () {
         return Inertia::render('Prueba');

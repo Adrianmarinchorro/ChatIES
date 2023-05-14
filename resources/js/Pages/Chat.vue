@@ -1,6 +1,6 @@
 <template>
     <Head title="Chat" />
-    <PruebaLayout>
+    <ChatLayout>
 
         <div class="flex h-128">
 
@@ -23,11 +23,11 @@
             </div>
 
         </div>
-    </PruebaLayout>
+    </ChatLayout>
 </template>
 
 <script>
-import PruebaLayout from '@/Layouts/PruebaLayout.vue';
+import ChatLayout from '@/Layouts/ChatLayout.vue';
 import { Head, router } from '@inertiajs/vue3';
 import InputChat from '@/Components/chat/InputChat.vue';
 import TextAreaChat from '@/Components/chat/TextAreaChat.vue';
@@ -37,7 +37,7 @@ export default {
 
     components: {
         SideBarChat,
-        InputChat, Head, PruebaLayout, TextAreaChat
+        InputChat, Head, ChatLayout, TextAreaChat
     },
 
     props: [

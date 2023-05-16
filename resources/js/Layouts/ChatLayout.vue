@@ -34,7 +34,7 @@
                     </template>
 
                     <template #content>
-                        <DropdownLink :href="route('logout')" method="post" as="button">
+                        <DropdownLink class="bg-gray-700" :href="route('logout')" method="post" as="button">
                             Log Out
                         </DropdownLink>
                     </template>

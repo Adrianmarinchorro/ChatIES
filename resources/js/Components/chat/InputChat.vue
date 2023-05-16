@@ -1,13 +1,13 @@
 <template>
-    <div class="bg-gray-800 w-max pr-10">
-        <div>
+    <div class="bg-gray-800 min-w-full">
 
-            <form @submit.prevent="submit">
-                <input type="text" placeholder="Intruduce tu pregunta" class="md:w-128 lg:w-98 break-words h-auto rounded" v-model="message">
-                <button type="submit" class="ml-2 btn btn-active btn glass">Enviar</button>
+            <form  @submit.prevent="submit">
+                <div class="flex">
+                <input type="text" placeholder="Intruduce tu pregunta" class="break-words h-auto rounded w-5/6" v-model="message">
+                <button type="submit" class="ml-2 btn btn-active btn glass w-20">Enviar</button>
+                </div>
             </form>
 
-        </div>
 
     </div>
 </template>

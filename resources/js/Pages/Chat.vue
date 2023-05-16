@@ -2,9 +2,9 @@
     <Head title="Chat" />
     <ChatLayout>
 
-        <div class="flex h-128">
+        <div class="flex">
 
-            <div class="w-1/6 bg-gray-800 border-4 border-gray-600 min-h-full max-h-full">
+            <div class="w-1/6 bg-gray-800 border-4 border-gray-600">
                 <SideBarChat :allChats="allChats" :chat="chats"></SideBarChat>
             </div>
 
@@ -16,7 +16,7 @@
                     </p>
                 </div>
 
-                <InputChat class="absolute bottom-0 p-6" :chats="chats">
+                <InputChat class="max-w-full pl-6" :chats="chats">
 
                 </InputChat>
 

@@ -1,5 +1,5 @@
 <template>
-    <div class="max-h-full overflow-y-auto overflow-hidden scrollbar scrollbar-thumb-gray-800">
+    <div class="overflow-y-auto overflow-hidden scrollbar scrollbar-thumb-gray-800">
         <button class="btn btn-warning w-full rounded border-4 border-gray-800" @click="createNewChat">Nuevo Chat</button>
         <button class="btn btn-error w-full rounded border-4 border-gray-800" @click="deleteChat">Eliminar Chat actual</button>
 

@@ -1,5 +1,5 @@
 <template>
-    <div ref="chatWindow" class="bg-gray-500 m-5 h-100 overflow-y-auto scroll-bottomº">
+    <div ref="chatWindow" class="bg-gray-500 m-5 h-100 overflow-y-auto scroll-bottom">
         <div v-if="chats" v-for="(chat, index) in chats.data" :key="index">
             <TextUser  :chat="chat.request" class="mt-2"></TextUser>
             <TextIA :chat="chat.response" class="mt-2"></TextIA>

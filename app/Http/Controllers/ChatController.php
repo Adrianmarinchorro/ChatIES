@@ -50,29 +50,16 @@ class ChatController extends Controller
             return redirect(route('chat'));
         }
 
-        $open_ai_key = getenv('OPENAI_API_KEY');
-        $open_ai = new OpenAi($open_ai_key);
-
-        $result = $open_ai->chat([
-            'model' => 'gpt-3.5-turbo',
-            'messages' => [
-                [
-                    "role" => "user",
-                    "content" => $request["message"]
-                ],
-            ],
-            'temperature' => 1.0,
-            'max_tokens' => 1000,
-            'frequency_penalty' => 0,
-            'presence_penalty' => 0,
-        ]);
-
-        $result = json_decode($result);
 
         $user = auth()->user();
         $history = null;
         $chat = null;
         $allChats = null;
+
+        $result = $this->apiRequestResponse($request);
+
+
+
 
         if(!$user->history){
 
@@ -152,6 +139,50 @@ class ChatController extends Controller
         }
 
         return to_route('chat');
+    }
+
+
+    public function apiRequestResponse($request){
+        $user = auth()->user();
+
+        $open_ai_key = getenv('OPENAI_API_KEY');
+        $open_ai = new OpenAi($open_ai_key);
+        $messages = [];
+        if($user->history){
+            $history =  $user->history;
+            $chat = $history->chats()->find($request->chats_id);
+            $datas = json_decode($chat->data);
+
+
+            foreach($datas as $data){
+                $messages[] = [
+                    "role" => "user",
+                    "content" => $data->request
+                ];
+
+                $messages[] = [
+                    "role" => "assistant",
+                    "content" => $data->response
+                ];
+            }
+        }
+
+        $messages[] = [
+                "role" => "user",
+                "content" => $request["message"]
+            ];
+
+
+        $result = $open_ai->chat([
+            'model' => getenv('OPENAI_API_MODEL'),
+            'messages' => $messages,
+            'temperature' => 1.0,
+            'max_tokens' => 1000,
+            'frequency_penalty' => 0,
+            'presence_penalty' => 0,
+        ]);
+
+        return json_decode($result);
     }
 
 }

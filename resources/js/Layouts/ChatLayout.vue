@@ -2,7 +2,9 @@
 <div>
     <nav class="flex items-center justify-between flex-wrap bg-teal-800 p-6">
         <div class="flex items-center flex-shrink-0 text-white mr-6">
-            <ApplicationLogo/>
+            <Link :href="route('chat')">
+                <ApplicationLogo/>
+            </Link>
         </div>
         <div class="w-full block flex-grow lg:flex lg:items-center lg:w-auto">
             <div class="text-sm lg:flex-grow">
@@ -54,4 +56,5 @@
 import ApplicationLogo from '@/Components/ApplicationLogo.vue';
 import DropdownLink from '@/Components/DropdownLink.vue';
 import Dropdown from '@/Components/Dropdown.vue';
+import { Link } from '@inertiajs/vue3';
 </script>

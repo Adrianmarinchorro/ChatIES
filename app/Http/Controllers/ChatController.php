@@ -18,12 +18,10 @@ class ChatController extends Controller
         $history = null;
         $chat = null;
         $allChats = null;
-
         $chatId = $request['id'];
 
         if($user->history){
             $history =  $user->history;
-
 
             if($chatId) {
                 $chat = Chat::find($chatId);
@@ -50,7 +48,6 @@ class ChatController extends Controller
             return redirect(route('chat'));
         }
 
-
         $user = auth()->user();
         $history = null;
         $chat = null;
@@ -58,24 +55,24 @@ class ChatController extends Controller
 
         $result = $this->apiRequestResponse($request);
 
-
-
+        if(isset($result->error)){
+            return to_route('errorApi');
+        }
 
         if(!$user->history){
 
            $history =  $user->history()->create();
 
            $data = json_encode([
-            0 => [
-                'request' => $request['message'],
-                'response' => $result->choices[0]->message->content,
-            ]
+                0 => [
+                    'request' => $request['message'],
+                    'response' => $result->choices[0]->message->content,
+                ]
            ]);
 
            $chat =  $history->chats()->create([
             'data' => $data
            ]);
-
 
         }else {
 
@@ -148,11 +145,12 @@ class ChatController extends Controller
         $open_ai_key = getenv('OPENAI_API_KEY');
         $open_ai = new OpenAi($open_ai_key);
         $messages = [];
+
         if($user->history){
+
             $history =  $user->history;
             $chat = $history->chats()->find($request->chats_id);
             $datas = json_decode($chat->data);
-
 
             foreach($datas as $data){
                 $messages[] = [
@@ -172,7 +170,6 @@ class ChatController extends Controller
                 "content" => $request["message"]
             ];
 
-
         $result = $open_ai->chat([
             'model' => getenv('OPENAI_API_MODEL'),
             'messages' => $messages,
@@ -183,6 +180,16 @@ class ChatController extends Controller
         ]);
 
         return json_decode($result);
+    }
+
+
+    public function deleteHistory()
+    {
+        $user = auth()->user();
+
+        $user->history->delete();
+
+        return to_route('chat');
     }
 
 }

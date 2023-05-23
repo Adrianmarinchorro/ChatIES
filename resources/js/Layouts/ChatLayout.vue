@@ -37,7 +37,10 @@
 
                     <template #content>
                         <DropdownLink class="bg-gray-700" :href="route('logout')" method="post" as="button">
-                            Log Out
+                            Desconectar
+                        </DropdownLink>
+                        <DropdownLink class="bg-gray-700" :href="route('deletehistory')" method="delete" as="button">
+                            Borrar historial
                         </DropdownLink>
                     </template>
                 </Dropdown>

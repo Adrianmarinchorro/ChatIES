@@ -2,10 +2,14 @@
     <div class="bg-gray-800 min-w-full">
 
             <form  @submit.prevent="submit">
-                <div class="flex">
+                <div class="flex" v-if="!loadingResponse">
                 <input type="text" placeholder="Intruduce tu pregunta" class="break-words h-auto rounded w-5/6" v-model="message">
-                <button type="submit" class="ml-2 btn btn-active btn glass w-20">Enviar</button>
+                <button type="submit"  class="ml-2 btn btn-active glass w-1/6 w-40">Enviar</button>
                 </div>
+                <div v-else class="flex justify-center">
+                    <button  class="ml-2 btn loading btn-active glass w-40">loading</button>
+                </div>
+
             </form>
 
 
@@ -20,13 +24,20 @@ export default {
     data() {
         return {
             message: '',
+            loadingResponse: false,
         }
     },
 
+    watch: {
+        chats() {
+            this.loadingResponse = false;
+        }
+    },
     methods: {
         submit(){
 
             if(this.message != '') {
+                this.loadingResponse = true;
                 var chat_id = null;
 
                 if(this.chats){
@@ -36,6 +47,7 @@ export default {
                 var data = {message: this.message , chats_id : chat_id};
 
                 router.post('chat', data);
+
                 this.message = '';
             }
 

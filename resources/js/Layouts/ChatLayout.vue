@@ -6,8 +6,8 @@
                 <ApplicationLogo/>
             </Link>
         </div>
-        <div class="w-full flex-grow lg:flex lg:items-center lg:w-auto lg:justify-end">
-            <Dropdown align="right" width="48" class="hidden sm:block">
+        <div class="w-full flex-grow flex items-center w-auto justify-end">
+            <Dropdown align="right" width="48" class="lg:block hidden">
                 <template #trigger>
                     <span class="inline-flex rounded-md">
                         <button
@@ -42,9 +42,22 @@
                 </template>
             </Dropdown>
 
-            <div class="flex justify-end lg:hidden">
+            <div class="flex justify-end sm:block md:block lg:hidden">
                 <div class="dropdown dropdown-end ">
-                    <label tabindex="0" class="btn m-1">Click</label>
+                    <label tabindex="0" class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-stone-900  bg-teal-600  hover:text-teal-300  focus:outline-none transition ease-in-out duration-150">
+                        {{ $page.props.auth.user.username }}
+                        <svg
+                            class="ml-2 -mr-0.5 h-4 w-4"
+                            xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 20 20"
+                            fill="currentColor"
+                        ><path
+                                fill-rule="evenodd"
+                                d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                                clip-rule="evenodd"
+                            />
+                        </svg>
+                    </label>
                     <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-gray-700 rounded-box w-52">
                       <li class="text-white">
                         <Link :href="route('logout')" class="hover:bg-gray-600">

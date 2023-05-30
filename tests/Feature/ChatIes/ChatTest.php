@@ -24,4 +24,12 @@ class ChatTest extends TestCase
         $this->get('/chat')
             ->assertStatus(200);
     }
+
+    public function test_can_see_the_chat(): void
+    {
+        $this->loggin();
+
+        $this->get('/chat')
+            ->assertStatus(200);
+    }
 }

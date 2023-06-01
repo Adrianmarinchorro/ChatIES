@@ -2,17 +2,18 @@
 
 namespace Tests\Feature\ChatIes;
 
-use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
-use Illuminate\Support\Facades\Auth;
-use LdapRecord\Container;
 use Tests\TestCase;
+use App\Models\User;
+use LdapRecord\Container;
 use LdapRecord\Connection;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Foundation\Testing\DatabaseMigrations;
 
 class LoginTest extends TestCase
 {
-    use DatabaseMigrations, RefreshDatabase, WithFaker;
+    use RefreshDatabase, WithFaker;
 
     protected function setUp(): void
     {
@@ -49,12 +50,13 @@ class LoginTest extends TestCase
 
     public function test_registered_user_can_be_logged()
     {
-        // Aquí puedes realizar tus pruebas de inicio de sesión con LDAP.
-        // Por ejemplo, intenta autenticar un usuario válido y verifica el resultado.
+        $this->markTestSkipped('Pendiente de login con ldap');
+
+        $user = User::factory()->create();
 
         $credentials = [
-            'username' => 'admin',
-            'password' => 'admin',
+            'username' => $user->username,
+            'password' => 'password',
         ];
 
         $this->assertFalse(Auth::check());

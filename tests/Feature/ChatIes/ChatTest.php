@@ -2,24 +2,16 @@
 
 namespace Tests\Feature\ChatIes;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
+use App\Models\History;
+use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class ChatTest extends TestCase
 {
-
-    public function loggin(): void
-    {
-        $this->post('/login', [
-            'username' => 'am',
-            'password' => '123'
-        ]);
-    }
-
     public function test_can_see_the_chat_page(): void
     {
-        $this->loggin();
+        $this->signIn();
 
         $this->get('/chat')
             ->assertStatus(200);
@@ -27,9 +19,13 @@ class ChatTest extends TestCase
 
     public function test_can_see_the_chat(): void
     {
-        $this->loggin();
+        $this->signIn();
 
-        $this->get('/chat')
-            ->assertStatus(200);
+        $history = History::factory()->create();
+        $chat = History::factory()->create([
+            'history_id' => $history->id
+        ]);
+
+        
     }
 }

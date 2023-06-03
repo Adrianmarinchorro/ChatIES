@@ -69,18 +69,18 @@ class ChatTest extends TestCase
             ->where('chats.id', $chats[0]->id)
             ->where('chats.data', json_decode($chats[0]->data, true)));
 
-        $this->get('/newChat')->assertStatus(302)->assertRedirect('/chat');
+        $this->actingAs($user)->get('/newChat')->assertStatus(302)->assertRedirect('/chat');
 
-        $response2 = $this->post('/chat', ["message" => 'porque?'])->assertStatus(200);
+        $chats2 = History::first()->chats;
 
-        $chats2 = $history->chats;
-
-        dd(History::first()->chats);
+        $response2 = $this->actingAs($user)->post('/chat', [
+            'chats_id' => $chats2[1]->id,
+            'message' => 'Por que'
+        ]);
 
         $response2->assertInertia(fn (Assert $page) => $page
             ->whereNot('chats.id', $chats2[0]->id)
-            ->whereNot('chats.data', json_decode($chats2[0]->data, true))
-            >where('chats.id', $chats2[1]->id)
+            ->where('chats.id', $chats2[1]->id)
         );
 
     }

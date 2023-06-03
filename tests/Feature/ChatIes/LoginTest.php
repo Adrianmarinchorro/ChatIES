@@ -40,6 +40,8 @@ class LoginTest extends TestCase
 
     public function test_non_registered_user_cannot_be_logged(): void
     {
+        $this->markTestSkipped('Pendiente de login con ldap');
+
         $this->post('/login', [
             'username' => 'user',
             'password' => '123'

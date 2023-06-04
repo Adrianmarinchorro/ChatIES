@@ -18,7 +18,15 @@ class ChatController extends Controller
         $history = null;
         $chat = null;
         $allChats = null;
-        $chatId = $request['id'];
+        $chatId = null;
+
+        $validated = $request->validate([
+            'id' => 'exists:App\Models\Chat,id'
+        ]);
+
+        if(isset($validated['id'])){
+            $chatId = $validated['id'];
+        }
 
         if($user->history){
             $history =  $user->history;
@@ -187,7 +195,9 @@ class ChatController extends Controller
     {
         $user = auth()->user();
 
-        $user->history->delete();
+        if ($user->history) {
+            $user->history->delete();
+        }
 
         return to_route('chat');
     }

@@ -84,4 +84,71 @@ class ChatTest extends TestCase
         );
 
     }
+
+    //TODO: pendiente revision guiño guiño, orden ya tu sabe.
+    public function test_user_can_change_the_chat_view(): void
+    {
+        $this->signIn();
+
+        $user = User::first();
+        $history = History::factory()->create(['user_id' => $user->id]);
+
+        $chat1 = Chat::factory()->create(['history_id' => $history->id]);
+        $chat2 = Chat::factory()->create(['history_id' => $history->id]);
+
+        $response = $this->actingAs($user)->get('/chat?id=' . $chat1->id);
+
+        $response->assertInertia(fn (Assert $page) => $page
+            ->where('chats.id', $chat1->id)
+            ->whereNot('chats.id', $chat2->id)
+        );
+
+        $response = $this->actingAs($user)->get('/chat?id=' . $chat2->id );
+
+        $response->assertInertia(fn (Assert $page) => $page
+            ->where('chats.id', $chat2->id)
+            ->whereNot('chats.id', $chat1->id)
+        );
+    }
+
+    public function test_user_can_delete_a_chat(): void
+    {
+        $this->signIn();
+
+        $user = User::first();
+        $history = History::factory()->create(['user_id' => $user->id]);
+
+        $chat1 = Chat::factory()->create(['history_id' => $history->id]);
+        $chat2 = Chat::factory()->create(['history_id' => $history->id]);
+        $chat3 = Chat::factory()->create(['history_id' => $history->id]);
+
+        $allChats = Chat::where('history_id', $history->id)->get();
+
+        $this->actingAs($user)->delete('/deleteChat/' . $chat2->id);
+
+        $response = $this->get('/chat');
+
+        $response->assertInertia(fn (Assert $page) => $page
+            ->where('allChats.0.id', $allChats[0]->id)
+            ->whereNot('allChats.1.id', $allChats[1]->id)
+            ->where('allChats.1.id', $allChats[2]->id)
+        );
+    }
+
+    public function test_user_can_delete_history(): void
+    {
+        $this->signIn();
+
+        $user = User::first();
+        $history = History::factory()->create(['user_id' => $user->id]);
+
+        Chat::factory()->create(['history_id' => $history->id]);
+        Chat::factory()->create(['history_id' => $history->id]);
+        Chat::factory()->create(['history_id' => $history->id]);
+
+        $this->actingAs($user)->delete('/deletehistory');
+
+        $this->assertDatabaseMissing('histories', ['id' => $history->id]);
+        $this->assertDatabaseEmpty('chats');
+    }
 }

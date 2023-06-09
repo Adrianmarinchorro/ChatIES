@@ -3,7 +3,7 @@
 
             <form  @submit.prevent="submit">
                 <div class="flex" v-if="!loadingResponse">
-                <input type="text" placeholder="Intruduce tu pregunta" class="break-words h-auto rounded w-5/6" v-model="message">
+                <input type="text" placeholder="Introduce tu pregunta" class="break-words h-auto rounded w-5/6" v-model="message">
                 <button type="submit"  class="ml-2 btn btn-active glass w-1/6 w-40">Enviar</button>
                 </div>
                 <div v-else class="flex justify-center">

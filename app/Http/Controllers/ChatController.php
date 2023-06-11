@@ -154,7 +154,7 @@ class ChatController extends Controller
         $open_ai = new OpenAi($open_ai_key);
         $messages = [];
 
-        if($user->history){
+        if($user->history) {
 
             $history =  $user->history;
             $chat = $history->chats()->find($request->chats_id);

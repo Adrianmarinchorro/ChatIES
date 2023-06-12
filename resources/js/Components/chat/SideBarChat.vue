@@ -49,7 +49,9 @@ export default {
         },
 
         getChat(id) {
-            router.get('chat', {id: id});
+            if(!this.loadingResponse){
+                router.get('chat', {id: id});
+            }
         },
     }
 

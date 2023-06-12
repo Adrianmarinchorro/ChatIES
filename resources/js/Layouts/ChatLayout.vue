@@ -34,7 +34,7 @@
 
                 <template #content>
                     <DropdownLink class="bg-gray-700" :href="route('logout')" method="post" as="button">
-                        Desconectar
+                        Desconectarse
                     </DropdownLink>
                     <DropdownLink class="bg-gray-700" :href="route('deletehistory')" method="delete" as="button">
                         Borrar historial
@@ -61,7 +61,7 @@
                     <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-gray-700 rounded-box w-52">
                       <li class="text-white">
                         <Link :href="route('logout')" class="hover:bg-gray-600">
-                            Desconectar
+                            Desconectarse
                         </Link>
                       </li>
                       <li class="text-white">

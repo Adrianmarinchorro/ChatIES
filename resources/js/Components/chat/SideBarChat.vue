@@ -19,7 +19,7 @@
 import {router} from "@inertiajs/vue3";
 export default {
 
-    props: ['allChats', 'chat'],
+    props: ['allChats', 'chat', 'loadingResponse'],
 
     data() {
         return {
@@ -29,7 +29,9 @@ export default {
 
     methods: {
         createNewChat() {
-            router.get('newChat');
+            if(!this.loadingResponse){
+                router.get('newChat');
+            }
         },
 
         getName(data) {
@@ -41,14 +43,12 @@ export default {
         },
 
         deleteChat(){
-
-            if(this.chat){
+            if(this.chat && !this.loadingResponse){
                 router.delete('deleteChat/' + this.chat.id);
             }
         },
 
         getChat(id) {
-
             router.get('chat', {id: id});
         },
     }

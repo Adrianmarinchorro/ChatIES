@@ -5,18 +5,16 @@
         <div class="flex">
 
             <div class="w-1/6 bg-gray-800 border-4 border-gray-600">
-                <SideBarChat :allChats="allChats" :chat="chats"></SideBarChat>
+                <SideBarChat :allChats="allChats" :chat="chats" :loadingResponse="loadingResponse"></SideBarChat>
             </div>
 
             <div class="w-5/6 min-h-full bg-gray-800">
 
-                <div class="">
-                    <p>
-                        <TextAreaChat :chats="chats"></TextAreaChat>
-                    </p>
+                <div>
+                    <TextAreaChat :chats="chats"></TextAreaChat>
                 </div>
 
-                <InputChat class="max-w-full pl-6" :chats="chats">
+                <InputChat class="max-w-full pl-6" :chats="chats" @loadingResponse="loadingResponse = true">
 
                 </InputChat>
 
@@ -43,6 +41,14 @@ export default {
     props: [
         'chats', 'history' , 'allChats'
     ],
+    data() {
+        return {
+            loadingResponse: false
+        };
+    },
+    updated() {
+        this.loadingResponse = false;
+    }
 }
 </script>
 

@@ -38,6 +38,7 @@ export default {
 
             if(this.message != '') {
                 this.loadingResponse = true;
+                this.$emit('loadingResponse')
                 var chat_id = null;
 
                 if(this.chats){

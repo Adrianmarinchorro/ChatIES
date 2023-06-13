@@ -151,4 +151,13 @@ class ChatTest extends TestCase
         $this->assertDatabaseMissing('histories', ['id' => $history->id]);
         $this->assertDatabaseEmpty('chats');
     }
+
+    public function test_user_cannot_access_an_invalid_url(): void
+    {
+        $this->signIn();
+
+        $user = User::first();
+
+        $this->actingAs($user)->get('/invalidUrl')->assertRedirect('/error');
+    }
 }

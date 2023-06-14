@@ -59,11 +59,11 @@ class ChatController extends Controller
 
         $result = $this->apiRequestResponse($request);
 
-        if(isset($result->error)){
+        if (isset($result->error)){
             return to_route('errorApi');
         }
 
-        if(!$user->history){
+        if (!$user->history){
 
            $history =  $user->history()->create();
 
@@ -78,7 +78,7 @@ class ChatController extends Controller
             'data' => $data
            ]);
 
-        }else {
+        } else {
 
             $history =  $user->history;
             $chat = $history->chats()->find($request->chats_id);
@@ -94,9 +94,7 @@ class ChatController extends Controller
             $chat->save();
         }
 
-        if($history && $history->chats()->count() > 1) {
-            $allChats = $history->chats;
-        }
+        $allChats = $history->chats;
 
         $chat->data = json_decode($chat->data);
 
@@ -113,7 +111,7 @@ class ChatController extends Controller
         $user = auth()->user();
         $history = $user->history;
 
-        if($history){
+        if ($history) {
             $chat = Chat::where('history_id', $history->id)->latest()->first();
 
             if($chat->data != '[]'){
@@ -131,11 +129,11 @@ class ChatController extends Controller
         $history = $user->history;
         $chat = Chat::find($id);
 
-        if($chat){
+        if ($chat) {
             $chat->delete();
         }
 
-        if(count($history->chats) == 0){
+        if (count($history->chats) == 0) {
             $history->delete();
         }
 

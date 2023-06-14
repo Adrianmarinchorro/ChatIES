@@ -47,7 +47,10 @@ export default {
 
                 var data = {message: this.message , chats_id : chat_id};
 
-                router.post('chat', data);
+                router.post('chat', data, {
+                    onCancel: () => this.loadingResponse = false,
+                    onError: () => this.loadingResponse = false,
+                });
 
                 this.message = '';
             }

@@ -21,22 +21,20 @@ use \App\Http\Controllers\ChatController;
 Route::get('/', function () {
     return redirect()->route('login');
 });
-
-Route::get('/chat', [ChatController::class, 'index'])->middleware(['auth', 'verified'])->name('chat');
-
-Route::get('/error', function(){
-    return Inertia::render('Error');
-})->middleware(['auth', 'verified'])->name('error');
-
-Route::get('/errorApi', function(){
-    return Inertia::render('ErrorApi');
-})->middleware(['auth', 'verified'])->name('errorApi');
-
 Route::middleware('auth')->group(function () {
+    Route::get('/chat', [ChatController::class, 'index'])->name('chat');
     Route::post('/chat', [ChatController::class, 'addChat']);
     Route::get('/newChat', [ChatController::class, 'newChat'])->name('newChat');
     Route::delete('/deleteChat/{id}', [ChatController::class, 'deleteChat'])->name('delete');
     Route::delete('/deletehistory', [ChatController::class, 'deleteHistory'])->name('deletehistory');
+
+    Route::get('/error', function(){
+        return Inertia::render('Error');
+    })->name('error');
+
+    Route::get('/errorApi', function(){
+        return Inertia::render('ErrorApi');
+    })->name('errorApi');
 });
 
 

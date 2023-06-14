@@ -52,6 +52,18 @@ class ChatTest extends TestCase
             ->where('chats.id', $chats[0]->id)
             ->where('chats.data', json_decode($chats[0]->data, true)));
     }
+    public function test_when_user_chat_with_the_ai_the_chat_is_saved_in_the_database(): void
+    {
+        $this->signIn();
+
+        $this->assertDatabaseEmpty('chats');
+
+        $this->post('/chat', [
+            'message' => 'Hola que tal?'
+        ]);
+
+        $this->assertDatabaseCount('chats', 1);
+    }
 
     public function test_user_can_create_a_new_chat(): void
     {
@@ -78,6 +90,8 @@ class ChatTest extends TestCase
             'message' => 'Por que'
         ]);
 
+        $this->assertDatabaseCount('chats', 2);
+
         $response2->assertInertia(fn (Assert $page) => $page
             ->whereNot('chats.id', $chats2[0]->id)
             ->where('chats.id', $chats2[1]->id)
@@ -85,7 +99,6 @@ class ChatTest extends TestCase
 
     }
 
-    //TODO: pendiente revision guiño guiño, orden ya tu sabe.
     public function test_user_can_change_the_chat_view(): void
     {
         $this->signIn();
@@ -125,6 +138,8 @@ class ChatTest extends TestCase
         $allChats = Chat::where('history_id', $history->id)->get();
 
         $this->actingAs($user)->delete('/deleteChat/' . $chat2->id);
+
+        $this->assertDatabaseCount('chats', 2);
 
         $response = $this->get('/chat');
 

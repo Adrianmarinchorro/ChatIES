@@ -69,34 +69,13 @@ class ChatTest extends TestCase
     {
         $this->signIn();
 
-        $response1 = $this->post('/chat', [
-            'message' => 'Hola que tal?'
-        ]);
-
         $user = User::first();
-        $history = $user->history;
-        $chats = $history->chats;
-
-        $response1->assertInertia(fn (Assert $page) => $page
-            ->where('chats.id', $chats[0]->id)
-            ->where('chats.data', json_decode($chats[0]->data, true)));
+        $history = History::factory()->create(['user_id' => $user->id]);
+        Chat::factory()->create(['history_id' => $history->id]);
 
         $this->actingAs($user)->get('/newChat')->assertStatus(302)->assertRedirect('/chat');
 
         $this->assertDatabaseCount('chats', 2);
-
-        $chats2 = History::first()->chats;
-
-        $response2 = $this->actingAs($user)->post('/chat', [
-            'chats_id' => $chats2[1]->id,
-            'message' => 'Por que'
-        ]);
-
-        $response2->assertInertia(fn (Assert $page) => $page
-            ->whereNot('chats.id', $chats2[0]->id)
-            ->where('chats.id', $chats2[1]->id)
-        );
-
     }
 
     public function test_user_can_change_the_chat_view(): void

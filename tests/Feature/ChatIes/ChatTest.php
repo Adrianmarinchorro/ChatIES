@@ -83,14 +83,14 @@ class ChatTest extends TestCase
 
         $this->actingAs($user)->get('/newChat')->assertStatus(302)->assertRedirect('/chat');
 
+        $this->assertDatabaseCount('chats', 2);
+
         $chats2 = History::first()->chats;
 
         $response2 = $this->actingAs($user)->post('/chat', [
             'chats_id' => $chats2[1]->id,
             'message' => 'Por que'
         ]);
-
-        $this->assertDatabaseCount('chats', 2);
 
         $response2->assertInertia(fn (Assert $page) => $page
             ->whereNot('chats.id', $chats2[0]->id)

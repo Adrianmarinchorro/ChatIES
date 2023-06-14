@@ -24,14 +24,14 @@ class ChatController extends Controller
             'id' => 'exists:App\Models\Chat,id'
         ]);
 
-        if(isset($validated['id'])){
+        if (isset($validated['id'])) {
             $chatId = $validated['id'];
         }
 
-        if($user->history){
+        if ($user->history) {
             $history =  $user->history;
 
-            if($chatId) {
+            if ($chatId) {
                 $chat = Chat::find($chatId);
             } else {
                 $chat = Chat::where('history_id', $history->id)->latest()->first();
@@ -52,10 +52,6 @@ class ChatController extends Controller
 
     public function addChat(Request $request)
     {
-        if(!$request->isMethod('POST')){
-            return redirect(route('chat'));
-        }
-
         $user = auth()->user();
         $history = null;
         $chat = null;

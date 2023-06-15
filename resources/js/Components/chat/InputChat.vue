@@ -7,7 +7,7 @@
                 <button type="submit"  class="ml-2 btn btn-active glass w-1/6 w-40">Enviar</button>
                 </div>
                 <div v-else class="flex justify-center">
-                    <button  class="ml-2 btn loading btn-active glass w-40">loading</button>
+                    <button  class="ml-2 btn loading btn-active glass w-40">cargando</button>
                 </div>
 
             </form>

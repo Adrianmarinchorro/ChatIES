@@ -21,6 +21,9 @@ module.exports = {
                 '128': '91vh',
                 '100' : '80vh',
             },
+            spacing: {
+                '101': '45rem',
+            },
             scrollbar: {
                 width: '0px',
                 height: '0px',

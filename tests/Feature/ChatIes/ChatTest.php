@@ -78,7 +78,7 @@ class ChatTest extends TestCase
         $this->assertDatabaseCount('chats', 2);
     }
 
-    public function test_user_can_change_the_chat_view(): void
+    public function test_user_can_switch_chats_to_see_them(): void
     {
         $this->signIn();
 
@@ -101,6 +101,15 @@ class ChatTest extends TestCase
             ->where('chats.id', $chat2->id)
             ->whereNot('chats.id', $chat1->id)
         );
+    }
+
+    public function test_user_cannot_see_a_chat_with_invalid_id(): void
+    {
+        $this->signIn();
+
+        $user = User::first();
+
+        $this->actingAs($user)->get('/chat?id=invalidId')->assertRedirect('/');
     }
 
     public function test_user_can_delete_a_chat(): void
